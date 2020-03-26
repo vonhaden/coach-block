@@ -5,11 +5,16 @@
  * which makes it higher in priority.
  */
 
+
 .wp-block-cgb-block-coach-block  {
-  background: $green;
-  border: 0.2rem solid $black;
-  color: $black;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem;
+	display: flex;
+	margin: 0;
+	border-bottom: none;
+
+	.photo {
+		margin-right: 20px;
+		width: 175px
+	}
+
+
 }

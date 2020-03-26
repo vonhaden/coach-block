@@ -1,18 +1,1 @@
-/**
- * #.# Common SCSS
- *
- * Can include things like variables and mixins
- * that are used across the project.
-*/
-/**
- * #.# Styles
- *
- * CSS for both Frontend+Backend.
- */
-.wp-block-cgb-block-coach-block {
-  background: orangered;
-  border: 0.2rem solid #292929;
-  color: #292929;
-  margin: 0 auto;
-  max-width: 740px;
-  padding: 2rem; }
+.wp-block-cgb-block-coach-block{display:-ms-flexbox;display:flex;padding-bottom:30px;margin-bottom:30px;border-bottom:1px solid #e2e2e2}.wp-block-cgb-block-coach-block .photo{margin-right:20px;min-width:175px;max-width:250px}.wp-block-cgb-block-coach-block .text .name{color:#042649;font-weight:bold;font-size:24px;padding-bottom:7px}.wp-block-cgb-block-coach-block .text .role{font-size:16px;margin-bottom:12px}

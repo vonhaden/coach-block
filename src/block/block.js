@@ -103,33 +103,37 @@ registerBlockType( 'cgb/block-coach-block', {
 		return (
 			<div className={ props.className }>
 
-				<PlainText className='name'
-						   value={ name }
-						   onChange={ changeName }
-						   placeholder='Coach Name'
-				/>
+				<div className='photo'>
+					<MediaUploadCheck>
+						<MediaUpload allowedTypes={ ['images'] }
+									 onSelect={ selectImage }
+									 render={
+										 ({ open }) => <img src={ imgUrl } onClick={ open } />
+									 }
+						/>
+					</MediaUploadCheck>
+				</div>
 
-				<PlainText className='role'
-						   value={ role }
-						   onChange={ changeRole }
-						   placeholder='Role'
-				/>
-
-				<RichText className="description"
-						  tagName="div"
-						  value={ description }
-						  onChange={ changeDescription }
-						  placeholder="A description of the coach."
-				/>
-
-				<MediaUploadCheck>
-					<MediaUpload allowedTypes={ ['images'] }
-								 onSelect={ selectImage }
-								 render={
-								 	({ open }) => <img src={ imgUrl } onClick={ open } />
-								 }
+				<div className='text'>
+					<PlainText className='name'
+							   value={ name }
+							   onChange={ changeName }
+							   placeholder='Coach Name'
 					/>
-				</MediaUploadCheck>
+
+					<PlainText className='role'
+							   value={ role }
+							   onChange={ changeRole }
+							   placeholder='Role'
+					/>
+
+					<RichText className="description"
+							  tagName="div"
+							  value={ description }
+							  onChange={ changeDescription }
+							  placeholder="A description of the coach."
+					/>
+				</div>
 
 			</div>
 		);
