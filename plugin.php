@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: coach-block — CGB Gutenberg Block Plugin
- * Plugin URI: https://github.com/ahmadawais/create-guten-block/
+ * Plugin Name: Coach Block
+ * Plugin URI:
  * Description: coach-block — is a Gutenberg plugin created via create-guten-block.
- * Author: mrahmadawais, maedahbatool
- * Author URI: https://AhmadAwais.com/
+ * Author: Andrew Von Haden
+ * Author URI: andrewvonhaden.com
  * Version: 1.0.0
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
