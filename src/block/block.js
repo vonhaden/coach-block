@@ -27,13 +27,11 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
  */
 registerBlockType( 'cgb/block-coach-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'coach-block - CGB Block' ), // Block title.
-	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
+	title: __( 'Coach Block' ), // Block title.
+	icon: 'dashicons-id-alt', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
 	keywords: [
-		__( 'coach-block — CGB Block' ),
-		__( 'CGB Example' ),
-		__( 'create-guten-block' ),
+		__( 'Coach' ),
 	],
 
 	/**
