@@ -9,8 +9,10 @@
 import './editor.scss';
 import './style.scss';
 
-const { __ } = wp.i18n; // Import __() from wp.i18n
-const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
+const { __ } = wp.i18n;
+const { registerBlockType } = wp.blocks;
+const { RichText, PlainText, MediaUpload, MediaUploadCheck } = wp.blockEditor;
+
 
 /**
  * Register: aa Gutenberg Block.
@@ -26,14 +28,37 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
  *                             registered; otherwise `undefined`.
  */
 registerBlockType( 'cgb/block-coach-block', {
-	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'Coach Block' ), // Block title.
-	icon: 'dashicons-id-alt', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
-	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
+	title: __( 'Coach' ),
+	icon: 'id-alt',
+	category: 'common',
 	keywords: [
 		__( 'Coach' ),
 	],
+	attributes: {
+		name: {
+			type: 'string',
+			source: 'text',
+			selector: '.name',
+		},
+		role: {
+			type: 'string',
+			source: 'text',
+			selector: '.role',
+		},
+		description: {
+			type: 'string',
+			source: 'html',
+			selector: '.description',
+		},
+		imgUrl: {
+			type: 'string',
+			default: 'https://placehold.it/75',
+		}
+	},
 
+
+
+	// -------------- EDIT --------------//
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
 	 * This represents what the editor will render when the block is used.
@@ -46,25 +71,73 @@ registerBlockType( 'cgb/block-coach-block', {
 	 * @returns {Mixed} JSX Component.
 	 */
 	edit: ( props ) => {
-		// Creates a <p class='wp-block-cgb-block-coach-block'></p>.
+
+		// set the properties in props
+		let {
+			attributes: { name, role, description, imgUrl },
+			setAttributes,
+			className
+		} = props;
+
+
+		// Functions
+		function changeName( value ) {
+			setAttributes( { name: value } )
+		}
+
+		function changeRole( value ) {
+			setAttributes( { role: value } )
+		}
+
+		function changeDescription( value ) {
+			setAttributes( { description: value } )
+		}
+
+		function selectImage( value ) {
+			console.log(value);
+			setAttributes( { imgUrl: value.sizes.thumbnail.url } );
+		}
+
+
+
 		return (
 			<div className={ props.className }>
-				<p>— Hello from the backend.</p>
-				<p>
-					CGB BLOCK: <code>coach-block</code> is a new Gutenberg block
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
+
+				<PlainText className='name'
+						   value={ name }
+						   onChange={ changeName }
+						   placeholder='Coach Name'
+				/>
+
+				<PlainText className='role'
+						   value={ role }
+						   onChange={ changeRole }
+						   placeholder='Role'
+				/>
+
+				<RichText className="description"
+						  tagName="div"
+						  value={ description }
+						  onChange={ changeDescription }
+						  placeholder="A description of the coach."
+				/>
+
+				<MediaUploadCheck>
+					<MediaUpload allowedTypes={ ['images'] }
+								 onSelect={ selectImage }
+								 render={
+								 	({ open }) => <img src={ imgUrl } onClick={ open } />
+								 }
+					/>
+				</MediaUploadCheck>
+
 			</div>
 		);
 	},
 
+
+
+	// -------------- SAVE --------------//
 	/**
 	 * The save function defines the way in which the different attributes should be combined
 	 * into the final markup, which is then serialized by Gutenberg into post_content.
@@ -79,18 +152,23 @@ registerBlockType( 'cgb/block-coach-block', {
 	save: ( props ) => {
 		return (
 			<div className={ props.className }>
-				<p>— Hello from the frontend.</p>
-				<p>
-					CGB BLOCK: <code>coach-block</code> is a new Gutenberg block.
-				</p>
-				<p>
-					It was created via{ ' ' }
-					<code>
-						<a href="https://github.com/ahmadawais/create-guten-block">
-							create-guten-block
-						</a>
-					</code>.
-				</p>
+				<div className="photo">
+					<img src={ props.attributes.imgUrl }
+						 alt={ 'Photo of ' + props.attributes.name }
+					/>
+				</div>
+				<div className='text'>
+					<p className='name'>
+						{ props.attributes.name }
+					</p>
+					<p className='role'>
+						{ props.attributes.role }
+					</p>
+					<RichText.Content tagName="div"
+									  className="description"
+									  value={ props.attributes.description }
+					/>
+				</div>
 			</div>
 		);
 	},
